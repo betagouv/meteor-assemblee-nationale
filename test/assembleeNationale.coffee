@@ -33,4 +33,71 @@ describe 'AssembleeNationale', ->
 				test.equal result.amdtsParOrdreDeDiscussion.$.legislature, TEST_LEGISLATURE
 				done()
 
+	describe 'normalizeAmendements', ->
+		firstAmendement = {
+			"place": "Article PREMIER",
+			"numero": "SPE862",
+			"sort": "Adopté",
+			"parentNumero": "",
+			"auteurLabel": "M. PANCHER",
+			"auteurLabelFull": "M. PANCHER Bertrand",
+			"auteurGroupe": "UDI",
+			"alineaLabel": "av 1",
+			"missionLabel": "",
+			"discussionCommune": "",
+			"discussionCommuneAmdtPositon": "",
+			"discussionCommuneSsAmdtPositon": "",
+			"discussionIdentique": "",
+			"discussionIdentiqueAmdtPositon": "",
+			"discussionIdentiqueSsAmdtPositon": "",
+			"position": "0001/1731"
+		}
 
+		source = {
+			"amdtsParOrdreDeDiscussion": {
+				"$": {
+					"bibard": "2447",
+					"bibardSuffixe": "",
+					"organe": "CSCRACTIV",
+					"legislature": "14",
+					"titre": "La croissance et l'activité",
+					"type": "projet de loi"
+				},
+				"amendements": [
+					{
+						"amendement": [
+							{
+								"$": firstAmendement
+							},
+							{
+								"$": {
+									"place": "Article PREMIER",
+									"numero": "SPE1263",
+									"sort": "Rejeté",
+									"parentNumero": "",
+									"auteurLabel": "M. GIRAUD",
+									"auteurLabelFull": "M. GIRAUD Joël",
+									"auteurGroupe": "RRDP",
+									"alineaLabel": "av 1",
+									"missionLabel": "",
+									"discussionCommune": "",
+									"discussionCommuneAmdtPositon": "",
+									"discussionCommuneSsAmdtPositon": "",
+									"discussionIdentique": "",
+									"discussionIdentiqueAmdtPositon": "",
+									"discussionIdentiqueSsAmdtPositon": "",
+									"position": "0002/1731"
+								}
+							}
+						]
+					}
+				]
+			}
+		}
+
+		it 'should properly unwrap amendements', (test) ->
+			actual = AssembleeNationale.normalizeAmendements(source)
+
+			test.instanceOf(actual, Array)
+			test.length(actual, 2)
+			test.equal(actual[0], firstAmendement)

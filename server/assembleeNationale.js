@@ -47,3 +47,9 @@ AssembleeNationale.getAmendementsJSON = function(textId, organismId, legislature
 		xml2js.parseString(result.content, callback);
 	});
 }
+
+AssembleeNationale.normalizeAmendements = function(data) {
+	return data.amdtsParOrdreDeDiscussion.amendements[0].amendement.map(function(amendementWrapper) {
+		return amendementWrapper['$'];
+	});
+}
