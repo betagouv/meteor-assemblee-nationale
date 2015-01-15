@@ -53,3 +53,12 @@ AssembleeNationale.normalizeAmendements = function(data) {
 		return amendementWrapper['$'];
 	});
 }
+
+AssembleeNationale.getAmendements = function(textId, organismId, legislature, callback) {
+	AssembleeNationale.getAmendementsJSON(textId, organismId, legislature, function(error, result) {
+		if (error)
+			return callback(error);
+
+		callback(null, AssembleeNationale.normalizeAmendements(result));
+	});
+}

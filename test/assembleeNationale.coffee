@@ -4,6 +4,25 @@ TEST_LEGISLATURE = '14'
 
 
 describe 'AssembleeNationale', ->
+	FIRST_AMENDEMENT = {
+		"place": "Article PREMIER",
+		"numero": "SPE862",
+		"sort": "Adopté",
+		"parentNumero": "",
+		"auteurLabel": "M. PANCHER",
+		"auteurLabelFull": "M. PANCHER Bertrand",
+		"auteurGroupe": "UDI",
+		"alineaLabel": "av 1",
+		"missionLabel": "",
+		"discussionCommune": "",
+		"discussionCommuneAmdtPositon": "",
+		"discussionCommuneSsAmdtPositon": "",
+		"discussionIdentique": "",
+		"discussionIdentiqueAmdtPositon": "",
+		"discussionIdentiqueSsAmdtPositon": "",
+		"position": "0001/1731"
+	}
+
 	describe 'getAmendementsURL()', ->
 		it 'should throw if no textId is given', (test) ->
 			test.throws(AssembleeNationale.getAmendementsURL)
@@ -34,26 +53,7 @@ describe 'AssembleeNationale', ->
 				done()
 
 	describe 'normalizeAmendements', ->
-		firstAmendement = {
-			"place": "Article PREMIER",
-			"numero": "SPE862",
-			"sort": "Adopté",
-			"parentNumero": "",
-			"auteurLabel": "M. PANCHER",
-			"auteurLabelFull": "M. PANCHER Bertrand",
-			"auteurGroupe": "UDI",
-			"alineaLabel": "av 1",
-			"missionLabel": "",
-			"discussionCommune": "",
-			"discussionCommuneAmdtPositon": "",
-			"discussionCommuneSsAmdtPositon": "",
-			"discussionIdentique": "",
-			"discussionIdentiqueAmdtPositon": "",
-			"discussionIdentiqueSsAmdtPositon": "",
-			"position": "0001/1731"
-		}
-
-		source = {
+		SOURCE = {
 			"amdtsParOrdreDeDiscussion": {
 				"$": {
 					"bibard": "2447",
@@ -67,7 +67,7 @@ describe 'AssembleeNationale', ->
 					{
 						"amendement": [
 							{
-								"$": firstAmendement
+								"$": FIRST_AMENDEMENT
 							},
 							{
 								"$": {
@@ -96,8 +96,15 @@ describe 'AssembleeNationale', ->
 		}
 
 		it 'should properly unwrap amendements', (test) ->
-			actual = AssembleeNationale.normalizeAmendements(source)
+			actual = AssembleeNationale.normalizeAmendements SOURCE
 
-			test.instanceOf(actual, Array)
-			test.length(actual, 2)
-			test.equal(actual[0], firstAmendement)
+			test.instanceOf actual, Array
+			test.length actual, 2
+			test.equal actual[0], FIRST_AMENDEMENT
+
+	describe 'getAmendements', ->
+		it 'should properly fetch and present amendements', (test, done) ->
+			AssembleeNationale.getAmendements TEST_TEXTID, TEST_ORGANISMID, TEST_LEGISLATURE, (error, result) ->
+				test.isNull error
+				test.equal Object.keys(result[0]), Object.keys(FIRST_AMENDEMENT)	# we don't compare values as they are subject to change
+				done()
