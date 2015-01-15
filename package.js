@@ -23,5 +23,5 @@ Package.onTest(function(api) {
 	api.use('tinytest');
 	api.use('peterellisjones:describe');
 	api.use('sgmap:assemblee-nationale');
-	api.addFiles('test/assembleeNationale.coffee');
+	api.addFiles('test/assembleeNationale.coffee', 'server');
 });
