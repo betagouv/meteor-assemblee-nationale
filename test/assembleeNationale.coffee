@@ -21,9 +21,9 @@ describe 'AssembleeNationale', ->
 				test.notEqual result.content.indexOf('<amdtsParOrdreDeDiscussion  bibard="' + TEST_TEXTID + '"  bibardSuffixe=""  organe="' + TEST_ORGANISMID + '"  legislature="' + TEST_LEGISLATURE + '"'), -1
 				done()
 
-	describe 'getAmendements', ->
+	describe 'getAmendementsJSON', ->
 		it 'should properly parse XML', (test, done) ->
-			AssembleeNationale.getAmendements TEST_TEXTID, TEST_ORGANISMID, TEST_LEGISLATURE, (error, result) ->
+			AssembleeNationale.getAmendementsJSON TEST_TEXTID, TEST_ORGANISMID, TEST_LEGISLATURE, (error, result) ->
 				test.isNull error
 				test.isNotNull result
 				test.isNotNull result.amdtsParOrdreDeDiscussion

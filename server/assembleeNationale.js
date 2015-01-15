@@ -39,7 +39,7 @@ AssembleeNationale.getAmendementsXML = function(textId, organismId, legislature,
 	HTTP.get(AssembleeNationale.getAmendementsURL(textId, organismId, legislature), { timeout: 20 * 1000 }, callback);
 }
 
-AssembleeNationale.getAmendements = function(textId, organismId, legislature, callback) {
+AssembleeNationale.getAmendementsJSON = function(textId, organismId, legislature, callback) {
 	AssembleeNationale.getAmendementsXML(textId, organismId, legislature, function(error, result) {
 		if (error)
 			return callback(error);
