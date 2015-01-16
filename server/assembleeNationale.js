@@ -50,7 +50,9 @@ AssembleeNationale.getAmendementsJSON = function(textId, organismId, legislature
 
 AssembleeNationale.normalizeAmendements = function(data) {
 	return data.amdtsParOrdreDeDiscussion.amendements[0].amendement.map(function(amendementWrapper) {
-		return amendementWrapper['$'];
+		var amendementContent = amendementWrapper['$'];
+		amendementContent.position = Number(amendementContent.position.split('/')[0]);	// the position is of type '0001/1737', we normalize it to a Number
+		return amendementContent;
 	});
 }
 

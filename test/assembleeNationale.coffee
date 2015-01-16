@@ -98,9 +98,12 @@ describe 'AssembleeNationale', ->
 		it 'should properly unwrap amendements', (test) ->
 			actual = AssembleeNationale.normalizeAmendements SOURCE
 
+			expected = JSON.parse JSON.stringify FIRST_AMENDEMENT	# copy
+			expected.position = 1
+
 			test.instanceOf actual, Array
 			test.length actual, 2
-			test.equal actual[0], FIRST_AMENDEMENT
+			test.equal actual[0], expected
 
 	describe 'getAmendements', ->
 		it 'should properly fetch and present amendements', (test, done) ->
