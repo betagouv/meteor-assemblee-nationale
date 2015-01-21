@@ -1,66 +1,69 @@
 var xml2js = Npm.require('xml2js');
 
 
-AssembleeNationale = {};
+AssembleeNationale = {
 
-/**
-*@param	{Number}	legislature	Numéro de la législature.
-*@param	{String}	textId	Numéro du texte codé sur 4 caractères + suffixe :
-*	- ''  : texte hors PLF, première délibération
-*	- 'S' : texte hors PLF, seconde délibération
-*	- 'A' : PLF, première partie, première délibération
-*	- 'B' : PLF, première partie, seconde délibération
-*	- 'C' : PLF, deuxième partie, première délibération
-*	- 'D' : PLF, deuxième partie, seconde délibération
-*@param	{String}	organismId	Abréviation tribun de l’organe examinant :
-*	- organe de type Assemblée nationale : AN
-*	- organe de type commission permanente législative :
-*		- Défense	'CION_DEF'
-*		- Affaires étrangères	'CION_AFETR'
-*		- Finances	'CION_FIN'
-*		- Lois	'CION_LOIS'
-*		- Affaires culturelles et éducation	'CION-CEDU'
-*		- Affaires économiques	'CION-ECO'
-*		- Développement durable	 'CION-DVP'
-*		- Affaires sociales	'CION-SOC'
-*	- organe de type commission spéciale :	'CION_SPE'
-*/
-AssembleeNationale.getAmendementsURL = function(textId, organismId, legislature) {
-	if (! textId)
-		throw new ReferenceError('You need to specify a text number.');
 
-	organismId = organismId || 'AN';
-	legislature = legislature || 14;	// unless unexpected surprise, will be 14 from 2012 to 2017
 
-	return [ 'http://www.assemblee-nationale.fr', legislature, 'amendements', textId, organismId, 'liste.xml' ].join('/');
-}
+	/**
+	*@param	{Number}	legislature	Numéro de la législature.
+	*@param	{String}	textId	Numéro du texte codé sur 4 caractères + suffixe :
+	*	- ''  : texte hors PLF, première délibération
+	*	- 'S' : texte hors PLF, seconde délibération
+	*	- 'A' : PLF, première partie, première délibération
+	*	- 'B' : PLF, première partie, seconde délibération
+	*	- 'C' : PLF, deuxième partie, première délibération
+	*	- 'D' : PLF, deuxième partie, seconde délibération
+	*@param	{String}	organismId	Abréviation tribun de l’organe examinant :
+	*	- organe de type Assemblée nationale : AN
+	*	- organe de type commission permanente législative :
+	*		- Défense	'CION_DEF'
+	*		- Affaires étrangères	'CION_AFETR'
+	*		- Finances	'CION_FIN'
+	*		- Lois	'CION_LOIS'
+	*		- Affaires culturelles et éducation	'CION-CEDU'
+	*		- Affaires économiques	'CION-ECO'
+	*		- Développement durable	 'CION-DVP'
+	*		- Affaires sociales	'CION-SOC'
+	*	- organe de type commission spéciale :	'CION_SPE'
+	*/
+	getAmendementsURL: function getAmendementsURL(textId, organismId, legislature) {
+		if (! textId)
+			throw new ReferenceError('You need to specify a text number.');
 
-AssembleeNationale.getAmendementsXML = function(textId, organismId, legislature, callback) {
-	HTTP.get(AssembleeNationale.getAmendementsURL(textId, organismId, legislature), { timeout: 20 * 1000 }, callback);
-}
+		organismId = organismId || 'AN';
+		legislature = legislature || 14;	// unless unexpected surprise, will be 14 from 2012 to 2017
 
-AssembleeNationale.getAmendementsJSON = function(textId, organismId, legislature, callback) {
-	AssembleeNationale.getAmendementsXML(textId, organismId, legislature, function(error, result) {
-		if (error)
-			return callback(error);
+		return [ 'http://www.assemblee-nationale.fr', legislature, 'amendements', textId, organismId, 'liste.xml' ].join('/');
+	},
 
-		xml2js.parseString(result.content, callback);
-	});
-}
+	getAmendementsXML: function getAmendementsXML(textId, organismId, legislature, callback) {
+		HTTP.get(AssembleeNationale.getAmendementsURL(textId, organismId, legislature), { timeout: 20 * 1000 }, callback);
+	},
 
-AssembleeNationale.normalizeAmendements = function(data) {
-	return data.amdtsParOrdreDeDiscussion.amendements[0].amendement.map(function(amendementWrapper) {
-		var amendementContent = amendementWrapper['$'];
-		amendementContent.position = Number(amendementContent.position.split('/')[0]);	// the position is of type '0001/1737', we normalize it to a Number
-		return amendementContent;
-	});
-}
+	getAmendementsJSON: function getAmendementsJSON(textId, organismId, legislature, callback) {
+		AssembleeNationale.getAmendementsXML(textId, organismId, legislature, function(error, result) {
+			if (error)
+				return callback(error);
 
-AssembleeNationale.getAmendements = function(textId, organismId, legislature, callback) {
-	AssembleeNationale.getAmendementsJSON(textId, organismId, legislature, function(error, result) {
-		if (error)
-			return callback(error);
+			xml2js.parseString(result.content, callback);
+		});
+	},
 
-		callback(null, AssembleeNationale.normalizeAmendements(result));
-	});
+	normalizeAmendements: function normalizeAmendements(data) {
+		return data.amdtsParOrdreDeDiscussion.amendements[0].amendement.map(function(amendementWrapper) {
+			var amendementContent = amendementWrapper['$'];
+			amendementContent.position = Number(amendementContent.position.split('/')[0]);	// the position is of type '0001/1737', we normalize it to a Number
+			return amendementContent;
+		});
+	},
+
+	getAmendements: function getAmendements(textId, organismId, legislature, callback) {
+		AssembleeNationale.getAmendementsJSON(textId, organismId, legislature, function(error, result) {
+			if (error)
+				return callback(error);
+
+			callback(null, AssembleeNationale.normalizeAmendements(result));
+		});
+	}
 }
