@@ -15,6 +15,8 @@ describe 'Normalizers', ->
 				"Avant l'article 23":
 					article: 23
 					placement: AssembleeNationale.BEFORE
+				"Article 33 septiès":
+					article: 33
 				"Après l'article 47":
 					article: 47
 					placement: AssembleeNationale.AFTER
