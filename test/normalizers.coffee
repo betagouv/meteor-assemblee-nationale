@@ -20,6 +20,11 @@ describe 'Normalizers', ->
 				"Après l'article 47":
 					article: 47
 					placement: AssembleeNationale.AFTER
+				"Article 52 B":
+					article: 52
+				"Après l'article 53 C":
+					article: 53
+					placement: AssembleeNationale.AFTER
 
 			_.each TESTS, (expected, source) ->
 				describe "#{source}", (test) ->
