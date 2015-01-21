@@ -20,8 +20,12 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
 	api.use('coffeescript');
+	api.use('underscore');
 	api.use('tinytest');
 	api.use('peterellisjones:describe');
 	api.use('sgmap:assemblee-nationale');
+
+	api.addFiles('server/normalizers.js', 'server');
 	api.addFiles('test/assembleeNationale.coffee', 'server');
+	api.addFiles('test/normalizers.coffee', 'server');
 });

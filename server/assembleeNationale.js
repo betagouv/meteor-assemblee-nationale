@@ -2,7 +2,19 @@ var xml2js = Npm.require('xml2js');
 
 
 AssembleeNationale = {
+	/** Defines placement for article-related amendments.
+	*
+	*@constant
+	*@see	Normalizers.place
+	*/
+	BEFORE	: -1,	// Symbol, do NOT rely on this value
 
+	/** Defines placement for article-related amendments
+	*
+	*@constant
+	*@see	Normalizers.place
+	*/
+	AFTER	: 1,	// Symbol, do NOT rely on this value
 
 
 	/**
