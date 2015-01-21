@@ -43,7 +43,7 @@ Normalizers = {
 			var parsedProperties = parsePlacePart(part);
 
 			for (var parsedProperty in parsedProperties)
-				result[parsedProperty] = parsedProperties[parsedProperty];
+				result[parsedProperty] = result[parsedProperty] || parsedProperties[parsedProperty];	// do not allow overrides: the first words are less ambiguous
 
 			return result;
 		}, { raw: place });

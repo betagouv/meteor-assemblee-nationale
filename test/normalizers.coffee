@@ -28,3 +28,14 @@ describe 'Normalizers', ->
 					KEYS.forEach (key) ->
 						it "should properly set #{key}", (test) ->
 							test.equal actual[key], expected[key]
+
+		describe 'with a chapter reference', ->
+			actual = Normalizers.place 'Chapitre IV'
+
+			expected =
+				name: 'chapitre'
+				raw: 'Chapitre IV'
+
+			KEYS.forEach (key) ->
+				it "should properly set #{key}", (test) ->
+					test.equal actual[key], expected[key]
