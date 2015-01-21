@@ -1,3 +1,22 @@
+/**
+*@private
+*/
+function parsePlacePart(part) {
+	part = part.toLowerCase();
+
+	if (Number(part) > 0)
+		return { article: Number(part) };
+	if (part == 'avant')
+		return { placement: AssembleeNationale.BEFORE };
+	if (part == 'après')
+		return { placement: AssembleeNationale.AFTER };
+	if (part == 'premier')
+		return { article: 1 };
+
+	return { name: part.replace("l'", '') };
+}
+
+
 /**A collection of helper functions for each field imported from the Assemblée Nationale XML.
 */
 Normalizers = {
@@ -20,6 +39,13 @@ Normalizers = {
 	*	raw:	[String]	The original, XML-provided "place" value, in case these parsers fail.
 	*/
 	place: function normalizePlace(place) {
-		return Number(place.split('/')[0]);
-	},
+		return place.split(' ').reduce(function(result, part) {
+			var parsedProperties = parsePlacePart(part);
+
+			for (var parsedProperty in parsedProperties)
+				result[parsedProperty] = parsedProperties[parsedProperty];
+
+			return result;
+		}, { raw: place });
+	}
 }
