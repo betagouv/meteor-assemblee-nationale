@@ -13,7 +13,7 @@ function parsePlacePart(part) {
 	if (part == 'premier')
 		return { article: 1 };
 
-	return { name: part.replace("l'", '') };
+	return { type: part.replace("l'", '') };
 }
 
 
@@ -35,7 +35,7 @@ Normalizers = {
 	*@returns	{Object<String, ?>}	A descriptor with the following keys and values:
 	*	article:	[Number]	If defined, the number of the amended article. If not defined, the amendment does not refer to an article.
 	*	placement:	[Symbol]	If defined, may be one of AssembleeNationale.BEFORE or AssembleeNationale.AFTER. If not defined, then the article itself is amended. The actual type is not Symbol in ES<6, but you must rely on constants and not on Number values.
-	*	name:	[String]	The type of amended section. For example: "article", "titre", "chapitre"…
+	*	type:	[String]	The type of amended section. For example: "article", "titre", "chapitre"…
 	*	raw:	[String]	The original, XML-provided "place" value, in case these parsers fail.
 	*/
 	place: function normalizePlace(place) {

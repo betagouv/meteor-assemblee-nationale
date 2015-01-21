@@ -4,7 +4,7 @@ describe 'Normalizers', ->
 			test.equal Normalizers.position("0002/1731"), 2
 
 	describe 'place()', ->
-		KEYS = [ 'article', 'placement', 'name', 'raw' ]
+		KEYS = [ 'article', 'placement', 'type', 'raw' ]
 
 		describe 'with an article reference', ->
 			TESTS =
@@ -28,7 +28,7 @@ describe 'Normalizers', ->
 
 			_.each TESTS, (expected, source) ->
 				describe "#{source}", (test) ->
-					expected.name = 'article'
+					expected.type = 'article'
 					expected.raw = source
 					actual = Normalizers.place source
 
@@ -40,7 +40,7 @@ describe 'Normalizers', ->
 			actual = Normalizers.place 'Chapitre IV'
 
 			expected =
-				name: 'chapitre'
+				type: 'chapitre'
 				raw: 'Chapitre IV'
 
 			KEYS.forEach (key) ->
@@ -51,7 +51,7 @@ describe 'Normalizers', ->
 			actual = Normalizers.place 'Titre'
 
 			expected =
-				name: 'titre'
+				type: 'titre'
 				raw: 'Titre'
 
 			KEYS.forEach (key) ->
