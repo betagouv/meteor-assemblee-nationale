@@ -64,9 +64,12 @@ AssembleeNationale = {
 
 	normalizeAmendements: function normalizeAmendements(data) {
 		return data.amdtsParOrdreDeDiscussion.amendements[0].amendement.map(function(amendementWrapper) {
-			var amendementContent = amendementWrapper['$'];
-			amendementContent.position = Number(amendementContent.position.split('/')[0]);	// the position is of type '0001/1737', we normalize it to a Number
-			return amendementContent;
+			var result = amendementWrapper['$'];
+
+			for (var propertyToNormalize in Normalizers)
+				result[propertyToNormalize] = Normalizers[propertyToNormalize](result[propertyToNormalize]);
+
+			return result;
 		});
 	},
 

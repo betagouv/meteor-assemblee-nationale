@@ -95,15 +95,22 @@ describe 'AssembleeNationale', ->
 			}
 		}
 
-		it 'should properly unwrap amendements', (test) ->
-			actual = AssembleeNationale.normalizeAmendements SOURCE
+		actual = AssembleeNationale.normalizeAmendements SOURCE
 
-			expected = JSON.parse JSON.stringify FIRST_AMENDEMENT	# copy
-			expected.position = 1
-
+		it 'should return an array of Amendements', (test) ->
 			test.instanceOf actual, Array
 			test.length actual, 2
-			test.equal actual[0], expected
+
+		it 'should normalize Amendements content', (test) ->
+			expected = JSON.parse JSON.stringify FIRST_AMENDEMENT	# copy
+			expected.position = 1
+			expected.place =
+				raw: 'Article PREMIER'
+				type: 'article'
+				article: 1
+
+			for key, expectedValue of expected
+				test.equal actual[0][key], expected[key]
 
 	describe 'getAmendements', ->
 		it 'should properly fetch and present amendements', (test, done) ->

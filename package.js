@@ -14,6 +14,7 @@ Package.onUse(function(api) {
 	api.use('http', 'server');
 
 	api.addFiles('server/assembleeNationale.js', 'server');
+	api.addFiles('server/normalizers.js', 'server');
 
 	api.export('AssembleeNationale');
 });
