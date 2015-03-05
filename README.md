@@ -41,19 +41,19 @@ The identifier for the text itself (_“numéro du texte”_). This identifier i
 
 The identifier of the legislative organism in charge of examining the law project (_“abréviation tribun de l’organe examinant”_). This identifier is usually one of the following (in French), but the Assembly may name special commissions, and we can't predict these names…
 
-- organe de type Assemblée Nationale : 'AN'
+- organe de type Assemblée Nationale : `'AN'`
 - organe de type commission permanente législative :
-	- Défense : `CION_DEF`
-	- Affaires étrangères : `CION_AFETR`
-	- Finances : `CION_FIN`
-	- Lois : `CION_LOIS`
-	- Affaires culturelles et éducation : `CION-CEDU`
-	- Affaires économiques : `CION-ECO`
-	- Développement durable : `CION-DVP`
-	- Affaires sociales : `CION-SOC`
-- organe de type commission spéciale : `CION_SPE`
+	- Défense : `'CION_DEF'`
+	- Affaires étrangères : `'CION_AFETR'`
+	- Finances : `'CION_FIN'`
+	- Lois : `'CION_LOIS'`
+	- Affaires culturelles et éducation : `'CION-CEDU'`
+	- Affaires économiques : `'CION-ECO'`
+	- Développement durable : `'CION-DVP'`
+	- Affaires sociales : `'CION-SOC'`
+- organe de type commission spéciale : `'CION_SPE'`
 
-**Example**: the first Macron law project organism identifier is `CSCRACTIV`.
+**Example**: the first Macron law project organism identifier is `'CSCRACTIV'`.
 
 
 #### legislature
