@@ -1,6 +1,9 @@
-# Get amendment data from the French National Assembly in Meteor
+# Assemblée Nationale Meteor package
 
-Accéder à des données d'amendements de l'Assemblée Nationale depuis Meteor.
+Get amendment data from the French National Assembly in Meteor
+
+> Accéder à des données d'amendements de l'Assemblée Nationale depuis Meteor.
+
 
 ## Usage
 
