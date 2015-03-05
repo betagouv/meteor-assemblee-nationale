@@ -94,6 +94,19 @@ Here is an example amendment description:
 }
 ```
 
+The more interesting parts are:
+
+- `auteurGroupe`: the political group of the author of this amendment.
+- `auteurLabel`: the name of the author of this amendment.
+- `numero`: the ID of this amendment.
+- `position`: the index of this amendment in the discussion.
+- `sort`: result of the vote. For past project laws, may be one of `Rejeté` (rejected) or `Adopté` (adopted).
+- `place`: an object describing the placement of this amendment in the project law. Contains:
+	- `type`: the kind of text that is modified by this amendment. May be, for example, `article`, `titre` or `chapitre`.
+	- `article`: the index of the modified article or chapter.
+	- `placement`: an amendment may modify an article directly, in which case this field will be absent. It may also be an addition before or after an article, in which case this field will be respectively `AssembleeNationale.BEFORE` or `AssembleeNationale.AFTER`.
+	- `raw`: the textual value sent by the Assembly from which the above fields were parsed.
+
 
 ## Licence
 
