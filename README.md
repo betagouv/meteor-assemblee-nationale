@@ -17,6 +17,19 @@ AssembleeNationale.getAmendements(textId, organismId, legislature, callback);
 
 Your callback will be called with two parameters: an error or null if none occurred, and an array containing [amendment descriptions](#amendments-descriptions), sorted by examination order.
 
+Example:
+
+```javascript
+AssembleeNationale.getAmendements(2447, 'CSCRACTIV', 14, function(error, amendments) {
+	if (error)
+		throw error;
+
+	amendments.forEach(function(amendment) {
+		console.log(amendment.numero + ' will be examined at position ' + amendment.position);
+	});
+});
+```
+
 
 ### Identifying a project law
 
