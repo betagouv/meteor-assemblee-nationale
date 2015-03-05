@@ -1,23 +1,5 @@
-/**
-*@private
-*/
-function parsePlacePart(part) {
-	part = part.toLowerCase();
-
-	if (Number(part) > 0)
-		return { article: Number(part) };
-	if (part == 'avant')
-		return { placement: AssembleeNationale.BEFORE };
-	if (part == 'après')
-		return { placement: AssembleeNationale.AFTER };
-	if (part == 'premier')
-		return { article: 1 };
-
-	return { type: part.replace("l'", '') };
-}
-
-
 /**A collection of helper functions for each field imported from the Assemblée Nationale XML.
+*@private
 */
 Normalizers = {
 	/** The index at which this amendment will be examined.
@@ -48,4 +30,25 @@ Normalizers = {
 			return result;
 		}, { raw: place });
 	}
+}
+
+
+/** Normalize the raw article placement information.
+*
+*@returns {Object<String,Number|AssembleeNationale.BEFORE|AssembleeNationale.AFTER>}
+*@private
+*/
+function parsePlacePart(part) {
+	part = part.toLowerCase();
+
+	if (Number(part) > 0)
+		return { article: Number(part) };
+	if (part == 'avant')
+		return { placement: AssembleeNationale.BEFORE };
+	if (part == 'après')
+		return { placement: AssembleeNationale.AFTER };
+	if (part == 'premier')
+		return { article: 1 };
+
+	return { type: part.replace("l'", '') };
 }
