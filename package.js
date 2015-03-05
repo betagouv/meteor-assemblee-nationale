@@ -1,7 +1,7 @@
 Package.describe({
 	name: 'sgmap:assemblee-nationale',
 	summary: 'Get amendment data from the French Assemblée Nationale',
-	version: '0.0.1',
+	version: '1.0.0',
 	git: 'git://github.com/sgmap/meteor-assemblee-nationale'
 });
 
