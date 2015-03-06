@@ -4,6 +4,8 @@ Get amendment data from the French National Assembly in Meteor.
 
 > Accéder à des données d'amendements de l'Assemblée Nationale depuis Meteor.
 
+[![Tests results](https://img.shields.io/travis/sgmap/meteor-assemblee-nationale/master.svg)](https://travis-ci.org/sgmap/meteor-assemblee-nationale)
+[![Inline docs](https://inch-ci.org/github/sgmap/meteor-assemblee-nationale.svg?branch=master)](https://inch-ci.org/github/sgmap/meteor-assemblee-nationale)
 
 ## Usage
 
