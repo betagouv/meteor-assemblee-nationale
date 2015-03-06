@@ -34,8 +34,10 @@ Normalizers = {
 
 
 /** Normalize the raw article placement information.
+* See README for usage.
 *
-*@returns {Object<String,Number|AssembleeNationale.BEFORE|AssembleeNationale.AFTER>}
+*@param	{String}	part	The content of a `place` property, describing what content is amended in a human-readable format.
+*@returns {Object<String,Number|AssembleeNationale.BEFORE|AssembleeNationale.AFTER>} An object describing what content is amended in a machine-readable format.
 *@private
 */
 function parsePlacePart(part) {
